@@ -1,4 +1,5 @@
 import { test, Browser, Page, expect} from '@playwright/test';
+import { SandboxPage } from './Pages/SanboxPage';
 import exp from 'constants';
 
 (async () => {
@@ -42,8 +43,11 @@ import exp from 'constants';
             })
 
             await test.step('Puedo seleccionar checkboxes', async () => {
-                await page.getByLabel('Pasta 🍝').check();
-                await expect(page.getByLabel('Pasta 🍝')).toBeChecked();
+                const sandbox = new SandboxPage(page);
+                //await page.getByLabel('Pasta 🍝').check();
+                await sandbox.checkPasta();
+                
+                await expect(sandbox.pastaCheckbox, 'aquí puedo poner comentarios descriptivos 😊').toBeChecked();
             })
 
             await test.step('Puedo deseleccionar checkboxes', async () => {
